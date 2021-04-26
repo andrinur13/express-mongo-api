@@ -1,0 +1,8 @@
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => res.send(`Hello World!`));
+app.get('/:name/:umur', (req, res) => res.send(`Hello my name is ${req.params.name}, i'am ${req.params.umur} years old`))
+
+app.listen(port, () => console.log(`server running on port ${port}`));
