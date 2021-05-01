@@ -35,11 +35,14 @@ mongoose.connect('mongodb://localhost:27017/musikpedia', {
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const genreRouter = require('./routes/genre');
+const artistRouter = require('./routes/artist');
 
 app.use('/', indexRouter);
 
 app.use('/api/v1', usersRouter);
 app.use('/api/v1', genreRouter);
+app.use('/api/v1', genreRouter);
+app.use('/api/v1', artistRouter);
 
 
 // catch 404 and forward to error handler
