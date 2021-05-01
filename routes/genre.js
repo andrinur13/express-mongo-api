@@ -5,5 +5,6 @@ const middleware = require('../middleware/auth');
 
 router.post('/genre', middleware.validateToken, genreControllers.addGenre);
 router.get('/genre', genreControllers.listGenre);
+router.put('/genre', genreControllers.editGenre);
 
 module.exports = router;

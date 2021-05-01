@@ -78,5 +78,28 @@ module.exports = {
             const response = formatter.ResponseFormatter('failed', 'failed add genre', 422, null);
             res.status(422).json(response);
         }
+    },
+
+    editGenre: async (req, res) => {
+        try {
+            const { id, genre_name } = req.body;
+
+            let genreSearch = await Genre.findOne({ '_id': id }, function (err) {
+                if (err) {
+                    const response = formatter.ResponseFormatter('failed', 'data genre not found!', 404, null);
+                    res.status(404).json(response);
+                }
+            });
+
+            let genreUpdated = await Genre.updateOne({ '_id': id }, { 'genreName': genre_name });
+
+            const response = formatter.ResponseFormatter('success', 'success edit genre', 200, null);
+            res.status(200).json(response);
+
+            console.log(genreSearch);
+        } catch (error) {
+            const response = formatter.ResponseFormatter('failed', 'something error!', 422, null);
+            res.status(422).json(response);
+        }
     }
 }
