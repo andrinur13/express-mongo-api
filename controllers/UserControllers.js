@@ -51,11 +51,11 @@ module.exports = {
                     // create token
                     const token = jwt.sign({ email: loginQuery.email, id: loginQuery._id }, jwt_key);
 
-                    const response = formatter.ResponseFormatter('success', 'login success', 200, {token});
+                    const response = formatter.ResponseFormatter('success', 'login success', 200, { token });
                     res.status(200).json(response);
                 } else {
                     const error = 'username and password wrong!';
-                    const response = formatter.ResponseFormatter('failed', 'login failed', 401, {error});
+                    const response = formatter.ResponseFormatter('failed', 'login failed', 401, { error });
                     res.status(401).json(response);
                 }
             });
@@ -67,14 +67,14 @@ module.exports = {
         }
     },
 
-    validateToken: async(req, res, next) => {
+    validateToken: async (req, res, next) => {
         try {
             const token = req.headers.authorization;
 
-            jwt.verify(token, jwt_key, function(err, decoded) {
-                
-                if(err) {
-                    const response = formatter.ResponseFormatter('failed', 'login failed', 401, {err});
+            jwt.verify(token, jwt_key, function (err, decoded) {
+
+                if (err) {
+                    const response = formatter.ResponseFormatter('failed', 'login failed', 401, { err });
                     res.status(401).json(response);
                 } else {
                     next();
