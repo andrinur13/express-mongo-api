@@ -65,24 +65,5 @@ module.exports = {
             res.status(422).json(response);
             return
         }
-    },
-
-    validateToken: async (req, res, next) => {
-        try {
-            const token = req.headers.authorization;
-
-            jwt.verify(token, jwt_key, function (err, decoded) {
-
-                if (err) {
-                    const response = formatter.ResponseFormatter('failed', 'login failed', 401, { err });
-                    res.status(401).json(response);
-                } else {
-                    next();
-                }
-
-            })
-        } catch (error) {
-            console.log(error);
-        }
     }
 }
