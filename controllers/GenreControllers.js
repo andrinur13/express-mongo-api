@@ -82,7 +82,10 @@ module.exports = {
 
     editGenre: async (req, res) => {
         try {
-            const { id, genre_name } = req.body;
+            const {id, genre_name } = req.body;
+            const {iduri} = req.uri;
+
+            console.log(iduri);
 
             let genreSearch = await Genre.findOne({ '_id': id }, function (err) {
                 if (err) {
@@ -101,5 +104,6 @@ module.exports = {
             const response = formatter.ResponseFormatter('failed', 'something error!', 422, null);
             res.status(422).json(response);
         }
-    }
+    },
+
 }
