@@ -3,7 +3,7 @@ var router = express.Router();
 const genreControllers = require('../controllers/GenreControllers');
 const userControllers = require('../controllers/UserControllers');
 
-router.post('/genre', genreControllers.addGenre);
-router.get('/genre', userControllers.validateToken, genreControllers.listGenre);
+router.post('/genre', userControllers.validateToken, genreControllers.addGenre);
+router.get('/genre', genreControllers.listGenre);
 
 module.exports = router;
