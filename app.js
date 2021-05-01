@@ -4,9 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
 var app = express();
 
 // view engine setup
@@ -35,9 +32,15 @@ mongoose.connect('mongodb://localhost:27017/musikpedia', {
   }
 });
 
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+const genreRouter = require('./routes/genre');
+
 app.use('/', indexRouter);
 
-const apiv1 = app.use('/api/v1', usersRouter);
+app.use('/api/v1', usersRouter);
+app.use('/api/v1', genreRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
