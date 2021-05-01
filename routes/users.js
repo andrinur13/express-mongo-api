@@ -9,5 +9,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/add', usersControllers.addUser);
+router.post('/login', usersControllers.login);
 
 module.exports = router;
