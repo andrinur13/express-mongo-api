@@ -82,10 +82,10 @@ module.exports = {
 
     editGenre: async (req, res) => {
         try {
-            const {id, genre_name } = req.body;
-            const {iduri} = req.uri;
+            const { genre_name } = req.body;
+            const { id } = req.params;
 
-            console.log(iduri);
+            console.log(id);
 
             let genreSearch = await Genre.findOne({ '_id': id }, function (err) {
                 if (err) {
@@ -99,11 +99,29 @@ module.exports = {
             const response = formatter.ResponseFormatter('success', 'success edit genre', 200, null);
             res.status(200).json(response);
 
-            console.log(genreSearch);
         } catch (error) {
             const response = formatter.ResponseFormatter('failed', 'something error!', 422, null);
             res.status(422).json(response);
         }
     },
+
+    deletedGenre: async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            const deletedGenre = await Genre.deleteOne({ 'id': id }, function (err) {
+                if (err) {
+                    const response = formatter.ResponseFormatter('failed', 'data genre not found!', 404, null);
+                    res.status(404).json(response);
+                }
+            });
+
+            const response = formatter.ResponseFormatter('success', 'success deleted genre', 200, null);
+            res.status(200).json(response);
+        } catch (error) {
+            const response = formatter.ResponseFormatter('failed', 'something error!', 422, null);
+            res.status(422).json(response);
+        }
+    }
 
 }
