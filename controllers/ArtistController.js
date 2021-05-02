@@ -8,7 +8,6 @@ module.exports = {
         const { artist_name } = req.body;
 
         try {
-            console.log(req.userAuth.id);
 
             const newArtist = await Artist.create({
                 artist_name: artist_name,
@@ -45,6 +44,41 @@ module.exports = {
             });
 
             const response = formatter.ResponseFormatter('success', 'success fetch artist data', 200, artistData);
+            res.status(200).json(response);
+
+        } catch (error) {
+            const response = formatter.ResponseFormatter('failed', 'failed add artist data', 400, error);
+            res.status(400).json(response);
+        }
+    },
+
+    editArtist: async (req, res) => {
+        try {
+            // const newArtist = await Artist.create({
+            //     artist_name: artist_name,
+            //     user_id: req.userAuth.id
+            // });
+
+            // find artist
+            const user_id = req.userAuth.id;
+
+            const artistQuery = await Artist.find({ 'user_id': user_id }, function (error) {
+                if (error) {
+                    const response = formatter.ResponseFormatter('failed', 'data artist not found!', 404, null);
+                    res.status(404).json(response);
+                }
+            });
+
+            const { artist_name } = req.body;
+
+            const editedArtist = await Artist.updateOne({ 'user_id': user_id }, { 'artist_name': artist_name }, function (err) {
+                if (err) {
+                    const response = formatter.ResponseFormatter('failed', 'failed update data artist!', 422, err);
+                    res.status(422).json(response);
+                }
+            });
+
+            const response = formatter.ResponseFormatter('success', 'success edit artist', 200, null);
             res.status(200).json(response);
 
         } catch (error) {
