@@ -54,11 +54,6 @@ module.exports = {
 
     editArtist: async (req, res) => {
         try {
-            // const newArtist = await Artist.create({
-            //     artist_name: artist_name,
-            //     user_id: req.userAuth.id
-            // });
-
             // find artist
             const user_id = req.userAuth.id;
 
@@ -84,6 +79,25 @@ module.exports = {
         } catch (error) {
             const response = formatter.ResponseFormatter('failed', 'failed add artist data', 400, error);
             res.status(400).json(response);
+        }
+    },
+
+    deleteArtist: async (req, res) => {
+        const { id } = req.params;
+
+        try {
+            const deletedArtist = await Artist.deleteOne({ '_id': id }, function (err) {
+                if (err) {
+                    const response = formatter.ResponseFormatter('failed', 'failed to deleted artist', 422, null);
+                    res.status(422).json(response);
+                } else {
+                    const response = formatter.ResponseFormatter('success', 'success to deleted artist', 200, null);
+                    res.status(200).json(response);
+                }
+            });
+        } catch (err) {
+            const response = formatter.ResponseFormatter('failed', 'failed to deleted artist', 422, err);
+            res.status(422).json(response);
         }
     }
 
