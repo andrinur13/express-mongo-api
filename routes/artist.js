@@ -3,6 +3,7 @@ var router = express.Router();
 const artistController = require('../controllers/ArtistController');
 const middleware = require('../middleware/auth');
 
-router.post('/artist', artistController.addArtist);
+router.post('/artist', middleware.validateToken, artistController.addArtist);
+router.get('/artist', artistController.listArtist);
 
 module.exports = router;

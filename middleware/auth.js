@@ -16,6 +16,7 @@ module.exports = {
                     const response = formatter.ResponseFormatter('failed', 'login failed', 401, { err });
                     res.status(401).json(response);
                 } else {
+                    req.userAuth = decoded;
                     next();
                 }
 

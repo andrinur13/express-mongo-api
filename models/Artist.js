@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 const {objectId} = mongoose.Schema;
-// const User = require('./Users');
+const User = require('./Users');
 
 const artistSchema = new mongoose.Schema({
-    name: {
+    artist_name: {
         type: String,
         required: true
     },
     user_id: {
-        type: String,
+        type: 'objectId',
         required: true
     }
 }, {
