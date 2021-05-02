@@ -12,9 +12,10 @@ app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname + '/public'));
 
 
 // database connection - mongo
@@ -30,12 +31,13 @@ mongoose.connect('mongodb://localhost:27017/musikpedia', {
   } else {
     console.log(`success koneksi ke mongodb`)
   }
-});
+});false
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const genreRouter = require('./routes/genre');
 const artistRouter = require('./routes/artist');
+const trackRouter = require('./routes/tracks');
 
 app.use('/', indexRouter);
 
@@ -43,6 +45,7 @@ app.use('/api/v1', usersRouter);
 app.use('/api/v1', genreRouter);
 app.use('/api/v1', genreRouter);
 app.use('/api/v1', artistRouter);
+app.use('/api/v1', trackRouter);
 
 
 // catch 404 and forward to error handler

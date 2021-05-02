@@ -8,7 +8,12 @@ module.exports = {
     validateToken: async (req, res, next) => {
         try {
             const tokenGet = req.headers.authorization;
-            const token = tokenGet.split(" ");
+
+            let token = "";
+            
+            if(tokenGet != null) {
+                token = tokenGet.split(" ");
+            }
 
             jwt.verify(token[1], jwt_key, function (err, decoded) {
 
