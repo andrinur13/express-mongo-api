@@ -17,6 +17,10 @@ const tracksSchema = new mongoose.Schema({
     artist_id: {
         type: 'objectId',
         required: true
+    },
+    file_path: {
+        type: String,
+        required: true
     }
 }, {
     timestamps: true

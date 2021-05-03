@@ -5,5 +5,6 @@ const middleware = require('../middleware/auth');
 
 // routes
 router.post('/track', middleware.validateToken, trackControler.addTrack);
+router.get('/track', trackControler.listTrack);
 
 module.exports = router;
